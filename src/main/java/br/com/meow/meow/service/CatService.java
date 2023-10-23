@@ -22,8 +22,8 @@ http://localhost:8080/h2-console/
 URL PARA ACESSAR O SWAGGER:
 http://localhost:8080/swagger-ui/index.html
 
-- findAll
-- deleteById
+- findAll   *
+- deleteById *
 - findById
 
 // adicionar no repository também
@@ -51,9 +51,21 @@ public class CatService {
         return catRepository.findById(id);
     }
 
+    public void deleteById (Integer id) {
+        catRepository.deleteById(id);
+    }
+
+    public void deleteByName(String name) {
+        Cat cat = catRepository.findByName(name);
+        if (cat != null) {
+            catRepository.delete(cat);
+        }
+    }
+
     public List<Cat> findAll() {
         return catRepository.findAll();
     }
+
 
 
  /*   private void verifyDuplicatedEntities(Cat cat) {
