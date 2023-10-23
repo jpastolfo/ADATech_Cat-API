@@ -29,7 +29,7 @@ public class CatController {
     @GetMapping("/PSIPSIPSIPSI/{id}")
     @Operation(summary = "Acho que vi um gatinho...")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "[200](https://http.cat/200)",
+            @ApiResponse(responseCode = "302", description = "[302](https://http.cat/302)",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Cat.class)) }),
             @ApiResponse(responseCode = "400", description = "[400](https://http.cat/400)",
@@ -47,8 +47,47 @@ public class CatController {
         }
     }
 
+    @DeleteMapping("/meeaOOOOWW!/{id}")
+    @Operation(summary = "Remove um gatinho...")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "301", description = "[301](https://http.cat/301)",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Cat.class)) }),
+            @ApiResponse(responseCode = "400", description = "400",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "404",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "500",
+                    content = @Content) })
+    public ResponseEntity<?> deleteById(@PathVariable Integer id) {
+        try {
+            catService.deleteById(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(INTERNAL_SERVER_ERROR_MESSAGE);
+        }
+    }
+
+
+    @DeleteMapping("/meeaOOOOOOOWW!/{name}")
+    @Operation(summary = "Remove um gatinho pelo nome...")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "301", description = "[301](https://http.cat/301)",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Cat.class)) }),
+            @ApiResponse(responseCode = "400", description = "400",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "404",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "500",
+                    content = @Content) })
+    public ResponseEntity<?> deleteByName(@PathVariable String name) {
+        catService.deleteByName(name);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/gatinhogatinhogatinho")
-    @Operation(summary = "teste", description = "teste")
+    @Operation(summary = "Chamando todos os lordes da terra", description = "Chamando todos os gatineos")
     public ResponseEntity<List<Cat>> findAllCats() {
         List<Cat> allCats = catService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(allCats);
