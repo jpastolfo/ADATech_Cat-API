@@ -21,6 +21,8 @@ import java.util.List;
 @Tag(name = "meow meow", description = "meow")
 public class CatController {
 
+    private static final String INTERNAL_SERVER_ERROR_MESSAGE = "https://http.cat/status/500";
+
     @Autowired
     private CatService catService;
 
@@ -36,9 +38,13 @@ public class CatController {
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "https://http.cat/500",
             content = @Content) })
-    public ResponseEntity<Cat> findById(@PathVariable Integer id) {
-        Cat catFound = catService.findById(id).get();
-        return ResponseEntity.ok().body(catFound);
+    public ResponseEntity<?> findById(@PathVariable Integer id) {
+        try {
+            Cat catFound = catService.findById(id).get();
+            return ResponseEntity.ok().body(catFound);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(INTERNAL_SERVER_ERROR_MESSAGE);
+        }
     }
 
     @GetMapping("/gatinhogatinhogatinho")
