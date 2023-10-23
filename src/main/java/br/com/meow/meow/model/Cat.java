@@ -1,28 +1,36 @@
 package br.com.meow.meow.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.io.Serializable;
 
 /*
     Size da pra ser um ENUM futuramente
  */
 @Entity
 @Data
-@Table(name = "tb_cat")
-public class Cat {
+@Table(name = "cats")
+public class Cat implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Setter(AccessLevel.NONE)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
+    @NotBlank(message="NAME")
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "age", nullable = false)
+    @NotNull(message="AGE")
     private Integer age;
 
-    @Column(nullable = false)
+    @Column(name = "size", nullable = false)
+    @NotBlank(message="SIZE")
     private String size;
 
 }

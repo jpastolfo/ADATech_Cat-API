@@ -5,6 +5,9 @@ import br.com.meow.meow.repository.CatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 /*
 
 CRIEM AS BRANCHES NO GITHUB!!!
@@ -14,7 +17,10 @@ Alterar o service, essa classe msm.
 Alterar o CatController.
 
 URL PARA ACESSAR O BANCO:
-http://localhost:8084/h2-console/
+http://localhost:8080/h2-console/
+
+URL PARA ACESSAR O SWAGGER:
+http://localhost:8080/swagger-ui/index.html
 
 - findAll
 - deleteById
@@ -41,8 +47,20 @@ public class CatService {
         return catRepository.save(cat);
     }
 
-    public Cat findById(Integer id) {
-        return catRepository.findById(id).get();
+    public Optional<Cat> findById(Integer id) {
+        return catRepository.findById(id);
     }
 
+    public List<Cat> findAll() {
+        return catRepository.findAll();
+    }
+
+
+ /*   private void verifyDuplicatedEntities(Cat cat) {
+        var catExists = catRepository.findById(cat.getName());
+        if(catExists!=null && catExists.getId()!=cat.getId()) {
+            throw new RuleCatException(String.format("O gato %s já está cadastrado",
+                    cat.getNome().toUpperCase()));
+        }
+    }*/
 }

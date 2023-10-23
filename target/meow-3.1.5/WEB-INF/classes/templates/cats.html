@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cats</title>
+    <!-- Adicione o link para o Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container mt-5">
+    <h2>List of Cats</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Size</th>
+        </tr>
+        </thead>
+        <tbody id="catTableBody">
+        <!-- Aqui serão exibidos os dados dos gatinhos -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Adicione o link para o Bootstrap JS e o jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $.get("/CAT/gatinhogatinhogatinho", function (data) {
+        let catTableBody = $('#catTableBody');
+        data.forEach(function (cat) {
+            let row = `<tr>
+                                <td>${cat.id}</td>
+                                <td>${cat.name}</td>
+                                <td>${cat.breed}</td>
+                                <td>${cat.age}</td>
+                            </tr>`;
+            catTableBody.append(row);
+        });
+    });
+</script>
+</body>
+
+</html>
