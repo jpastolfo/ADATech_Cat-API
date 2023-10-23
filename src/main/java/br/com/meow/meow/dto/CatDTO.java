@@ -1,11 +1,20 @@
 package br.com.meow.meow.dto;
 
-import jakarta.persistence.Column;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 
-public class CatDTO {
-  /*
+import java.io.Serializable;
+
+@Data
+public class CatDTO implements Serializable {
+
+    @Setter(AccessLevel.NONE)
+    private Integer id;
+
     private String name;
+
     private Integer age;
+
     private String size;
-  */
 }
