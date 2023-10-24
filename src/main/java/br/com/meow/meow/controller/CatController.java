@@ -47,6 +47,61 @@ public class CatController {
         }
     }
 
+
+    @GetMapping("/PSIPSIPSIPSIPSI/{name}")
+    @Operation(summary = "Tenho quase certeza que vi um gatinho...")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "[302](https://http.cat/302)",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Cat.class)) }),
+            @ApiResponse(responseCode = "400", description = "400",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "404",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "500",
+                    content = @Content) })
+    public ResponseEntity<?> findByName(@PathVariable String name) {
+        try {
+            Cat catFound = catService.findByName(name);
+            if (catFound != null) {
+                return ResponseEntity.ok().body(catFound);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadê o gatinho? \n Sumiu");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(INTERNAL_SERVER_ERROR_MESSAGE);
+        }
+    }
+
+
+    @GetMapping("/PSIPSIPSIPSIPSIPSI/{age}")
+    @Operation(summary = "Você também viu um gatinho??...")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "[302](https://http.cat/302)",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Cat.class)) }),
+            @ApiResponse(responseCode = "400", description = "400",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "404",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "500",
+                    content = @Content) })
+    public ResponseEntity<?> findByAge(@PathVariable Integer age) {
+        try {
+            List<Cat> catsFound = catService.findByAge(age);
+            if (!catsFound.isEmpty()) {
+                return ResponseEntity.ok().body(catsFound);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum gatinho encontrado com essa idade.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(INTERNAL_SERVER_ERROR_MESSAGE);
+        }
+    }
+
+
+
+
     @DeleteMapping("/meeaOOOOWW!/{id}")
     @Operation(summary = "Remove um gatinho...")
     @ApiResponses(value = {
