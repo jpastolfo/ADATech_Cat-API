@@ -27,9 +27,9 @@ http://localhost:8080/swagger-ui/index.html
 - findById
 
 // adicionar no repository também
-- findByName
+- findByName *
 - findBySize
-- findByAge
+- findByAge *
 
 - update
 - verifyIfExists
@@ -49,6 +49,14 @@ public class CatService {
 
     public Optional<Cat> findById(Integer id) {
         return catRepository.findById(id);
+    }
+
+    public Cat findByName(String name) {
+        return catRepository.findByName(name);
+    }
+
+    public List<Cat> findByAge(Integer age) {
+        return catRepository.findByAge(age);
     }
 
     public void deleteById (Integer id) {
