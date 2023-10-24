@@ -68,7 +68,11 @@ public class CatService {
 
 
 
- /*   private void verifyDuplicatedEntities(Cat cat) {
+ /*
+
+
+
+        private void verifyDuplicatedEntities(Cat cat) {
         var catExists = catRepository.findById(cat.getName());
         if(catExists!=null && catExists.getId()!=cat.getId()) {
             throw new RuleCatException(String.format("O gato %s já está cadastrado",

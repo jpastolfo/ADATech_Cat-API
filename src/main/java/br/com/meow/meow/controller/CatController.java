@@ -53,11 +53,11 @@ public class CatController {
             @ApiResponse(responseCode = "301", description = "[301](https://http.cat/301)",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Cat.class)) }),
-            @ApiResponse(responseCode = "400", description = "400",
+            @ApiResponse(responseCode = "400", description = "[400](https://http.cat/400)",
                     content = @Content),
-            @ApiResponse(responseCode = "404", description = "404",
+            @ApiResponse(responseCode = "404", description = "[404](https://http.cat/404)",
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "500",
+            @ApiResponse(responseCode = "500", description = "[500](https://http.cat/500)",
                     content = @Content) })
     public ResponseEntity<?> deleteById(@PathVariable Integer id) {
         try {
@@ -75,11 +75,11 @@ public class CatController {
             @ApiResponse(responseCode = "301", description = "[301](https://http.cat/301)",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Cat.class)) }),
-            @ApiResponse(responseCode = "400", description = "400",
+            @ApiResponse(responseCode = "400", description = "[400](https://http.cat/400)",
                     content = @Content),
-            @ApiResponse(responseCode = "404", description = "404",
+            @ApiResponse(responseCode = "404", description = "[404](https://http.cat/404)",
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "500",
+            @ApiResponse(responseCode = "500", description = "[500](https://http.cat/500)",
                     content = @Content) })
     public ResponseEntity<?> deleteByName(@PathVariable String name) {
         catService.deleteByName(name);
