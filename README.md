@@ -18,7 +18,8 @@
 
 <p align="justify">
 
-Esta API foi projetada para permitir que os usuários registrem seus gatos e associem a cada registro uma imagem de gato, que é obtida através do consumo de uma API externa.
+Esse projeto permite que os usuários registrem seus gatos. <br>
+Existe também um consumo de uma API pública externa que conta alguns fatos aleatórios sobre gatinhos.
  
 ## Ferramentas utilizadas
 [![My Skills](https://skillicons.dev/icons?i=java,spring,postman)](https://skillicons.dev)
