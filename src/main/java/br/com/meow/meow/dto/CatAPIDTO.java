@@ -7,6 +7,6 @@ import lombok.Data;
 public class CatAPIDTO {
 
     @JsonProperty("fact")
-    private String teste;
+    private String fact;
 
 }

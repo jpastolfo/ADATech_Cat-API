@@ -39,4 +39,8 @@ public class Cat implements Serializable {
 
     @Column(nullable = false)
     private boolean enabled;
+
+    @Column(name = "fact")
+    @NotBlank(message="FACT")
+    private String fact;
 }

@@ -3,6 +3,7 @@ package br.com.meow.meow.controller;
 
 import br.com.meow.meow.dto.CatDTO;
 import br.com.meow.meow.model.Cat;
+import br.com.meow.meow.repository.CatRepository;
 import br.com.meow.meow.service.CatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -46,18 +47,23 @@ public class CatController {
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "[500](https://http.cat/500)",
             content = @Content) })
+
+
+  // ------------- GETfact ESTÁ AQUI ------------
     public ResponseEntity<?> findById(@PathVariable Integer id) {
         try {
             Optional<Cat> catFound = catService.findById(id);
-
-            return catFound.isEmpty()
-                    ? ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadê o gatinho? \n Sumiu")
-                    : ResponseEntity.ok().body(catFound);
-
+            if (catFound.isPresent()) {
+                Cat cat = catService.setFactForCat(catFound.get());
+                return ResponseEntity.ok().body(cat);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadê o gatinho? \n Sumiu");
+            }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(INTERNAL_SERVER_ERROR_MESSAGE);
         }
     }
+
 
 
     @GetMapping("/PSIPSIPSIPSIPSI/{name}")
@@ -98,6 +104,7 @@ public class CatController {
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "500",
                     content = @Content) })
+
     public ResponseEntity<?> findByAge(@PathVariable Integer age) {
         try {
             List<Cat> catsFound = catService.findByAge(age);
