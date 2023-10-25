@@ -26,6 +26,12 @@ public class CatController {
     @Autowired
     private CatService catService;
 
+    @PostMapping("/aiticuticuti")
+    public ResponseEntity<Cat> create(Cat cat) {
+        Cat newCat = catService.create(cat);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newCat);
+    }
+
     @GetMapping("/PSIPSIPSIPSI/{id}")
     @Operation(summary = "Acho que vi um gatinho...")
     @ApiResponses(value = {
@@ -148,10 +154,6 @@ public class CatController {
         return ResponseEntity.status(HttpStatus.OK).body(allCats);
     }
 
-    @PostMapping("/aiticuticuti")
-    public ResponseEntity<Cat> create(Cat cat) {
-        Cat newCat = catService.create(cat);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newCat);
-    }
+
 
 }

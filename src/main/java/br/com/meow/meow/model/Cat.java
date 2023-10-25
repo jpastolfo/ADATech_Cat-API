@@ -33,4 +33,5 @@ public class Cat implements Serializable {
     @NotBlank(message="SIZE")
     private String size;
 
+    private String fact;
 }
