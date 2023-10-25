@@ -10,6 +10,6 @@ import java.util.List;
 public interface CatAPI {
 
     @GetMapping("/fact")
-    public CatAPIDTO apiTeste();
+    public CatAPIDTO findAFact();
 
 }

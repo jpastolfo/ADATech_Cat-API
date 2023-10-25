@@ -17,7 +17,7 @@ public class CatAPIController {
     CatServiceAPI catServiceAPI;
     @GetMapping("/catAPI")
     public CatAPIDTO testeAPI(){
-        return catServiceAPI.testeAPI();
+        return catServiceAPI.findAFact();
     }
 
 }

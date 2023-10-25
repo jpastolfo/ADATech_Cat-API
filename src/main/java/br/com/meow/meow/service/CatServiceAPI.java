@@ -11,8 +11,8 @@ public class CatServiceAPI {
     @Autowired
     private CatAPI catAPI;
 
-    public CatAPIDTO testeAPI(){
-        return catAPI.apiTeste();
+    public CatAPIDTO findAFact(){
+        return catAPI.findAFact();
     }
 
 }

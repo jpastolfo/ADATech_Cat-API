@@ -1,6 +1,7 @@
 package br.com.meow.meow.controller;
 
 
+import br.com.meow.meow.dto.CatDTO;
 import br.com.meow.meow.model.Cat;
 import br.com.meow.meow.service.CatService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cats")
@@ -46,8 +48,12 @@ public class CatController {
             content = @Content) })
     public ResponseEntity<?> findById(@PathVariable Integer id) {
         try {
-            Cat catFound = catService.findById(id).get();
-            return ResponseEntity.ok().body(catFound);
+            Optional<Cat> catFound = catService.findById(id);
+
+            return catFound.isEmpty()
+                    ? ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadê o gatinho? \n Sumiu")
+                    : ResponseEntity.ok().body(catFound);
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(INTERNAL_SERVER_ERROR_MESSAGE);
         }
@@ -68,12 +74,12 @@ public class CatController {
                     content = @Content) })
     public ResponseEntity<?> findByName(@PathVariable String name) {
         try {
-            Cat catFound = catService.findByName(name);
-            if (catFound != null) {
-                return ResponseEntity.ok().body(catFound);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadê o gatinho? \n Sumiu");
-            }
+            Optional<Cat> catFound = catService.findByName(name);
+
+            return catFound.isEmpty()
+                    ? ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadê o gatinho? \n Sumiu")
+                    : ResponseEntity.ok().body(catFound);
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(INTERNAL_SERVER_ERROR_MESSAGE);
         }
@@ -154,6 +160,14 @@ public class CatController {
         return ResponseEntity.status(HttpStatus.OK).body(allCats);
     }
 
+    @PatchMapping(value = "/disable/{id}")
+    public void disableCat(@PathVariable(value = "id") Integer id) {
+        catService.disableCat(id);
+    }
 
+    @PutMapping(value = "/update")
+    public Cat update(@RequestBody Cat cat) {
+        return catService.update(cat);
+    }
 
 }
