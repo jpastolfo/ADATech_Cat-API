@@ -3,15 +3,18 @@ package br.com.meow.meow.service;
 import br.com.meow.meow.model.Cat;
 import br.com.meow.meow.repository.CatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 /*
 
 CRIEM AS BRANCHES NO GITHUB!!!
 
+DICAS:
 Alterar CatRepository se necessário.
 Alterar o service, essa classe msm.
 Alterar o CatController.
@@ -22,20 +25,21 @@ http://localhost:8080/h2-console/
 URL PARA ACESSAR O SWAGGER:
 http://localhost:8080/swagger-ui/index.html
 
-- findAll   *
-- deleteById *
-- findById
+ !! Size da pra ser um ENUM futuramente !!
 
-// adicionar no repository também
-- findByName *
+ **
+============= TAREFAS ================
 - findBySize
-- findByAge *
+- findByBreed
+ ** Se for fazer os de cima, PRECISA que fazer no repository também. CatRepository. **
 
-- update
-- verifyIfExists
+********
+- update ----->> IMPORTANTE !!!!
 
+- ARRUMAR O RETORNO DOS MÉTODOS PARA DTO!!
 - DOCUMENTAÇÃO NO README
 
+- Vou ter que mudar depois o retorno de runtime exception pra outro tipo de exception
  */
 @Service
 public class CatService {
@@ -43,40 +47,91 @@ public class CatService {
     @Autowired
     private CatRepository catRepository;
 
+    private Logger logger = Logger.getLogger(CatService.class.getName());
+
     public Cat create(Cat cat) {
+        verifyDuplicatedContent(cat);
+
+        logger.info("Creating a cat! Cat Name: " + cat.getName());
         return catRepository.save(cat);
     }
 
     public Optional<Cat> findById(Integer id) {
+        logger.info("Finding a cat by id! id: " + id);
         return catRepository.findById(id);
     }
 
-    public Cat findByName(String name) {
+    public Optional<Cat> findByName(String name) {
+        logger.info("Finding a cat by name! name: " + name);
         return catRepository.findByName(name);
     }
 
     public List<Cat> findByAge(Integer age) {
+        logger.info("Finding a cat by age! age: " + age);
         return catRepository.findByAge(age);
     }
 
-    public void deleteById (Integer id) {
+    public void deleteById(Integer id) {
+        logger.info("Deleting a cat by id! id: " + id);
         catRepository.deleteById(id);
     }
 
     public void deleteByName(String name) {
-        Cat cat = catRepository.findByName(name);
+        logger.info("Deleting a cat by name! name: " + name);
+        Cat cat = catRepository.findByName(name).get();
         if (cat != null) {
             catRepository.delete(cat);
         }
     }
 
     public List<Cat> findAll() {
+        logger.info("Finding All cats!");
         return catRepository.findAll();
+    }
+
+    public Cat update(Cat cat) {
+        if (cat == null) throw new RuntimeException("Null Object");
+
+        logger.info("Updating a cat! Cat Name: " + cat.getName());
+
+        Cat newCat = catRepository.findById(cat.getId()).orElseThrow(() -> new RuntimeException("No records found for this ID!"));
+
+        newCat.setName(cat.getName());
+        newCat.setAge(cat.getAge());
+        newCat.setBreed(cat.getBreed());
+        newCat.setSize(cat.getSize());
+        newCat.setEnabled(true);
+
+        return newCat;
+    }
+
+    // Falta testar...
+    public void disableCat(Integer id) {
+        logger.info("Disabling one cat by id! id: " + id);
+
+        catRepository.disableCat(id);
     }
 
 
 
- /*   private void verifyDuplicatedEntities(Cat cat) {
+    private void verifyDuplicatedContent(Cat cat) {
+        Optional<Cat> catName = catRepository.findByName(cat.getName());
+        if (catName != null && catName.get().getId() != cat.getId()) {
+            throw new RuntimeException("Duplicated content found");
+        }
+    }
+
+    private Cat verifyIfExists(Integer id) {
+        Optional<Cat> cat = findById(id);
+        if(cat.isEmpty()) {
+            throw new EmptyResultDataAccessException(1);
+        }
+        return cat.get();
+    }
+
+ /*
+
+        private void verifyDuplicatedEntities(Cat cat) {
         var catExists = catRepository.findById(cat.getName());
         if(catExists!=null && catExists.getId()!=cat.getId()) {
             throw new RuleCatException(String.format("O gato %s já está cadastrado",

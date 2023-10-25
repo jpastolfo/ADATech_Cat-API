@@ -33,4 +33,10 @@ public class Cat implements Serializable {
     @NotBlank(message="SIZE")
     private String size;
 
+    @Column(name = "breed")
+    @NotBlank(message="BREED")
+    private String breed;
+
+    @Column(nullable = false)
+    private boolean enabled;
 }
