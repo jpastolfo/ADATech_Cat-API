@@ -22,9 +22,22 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Gatos")
-                        .version("v1")
-                        .description("Gatinho macio \n" +
-                                "Gatinho quentinho \n" +
+                        .version("Miau")
+                        .description("Esse projeto permite que os usuários registrem seus gatos. \n" +
+                                "Existe também um consumo de uma API pública externa que conta alguns fatos aleatórios sobre gatinhos. \n" +
+                                "\n  Gatonês:  " +
+                                " Miau, Miau, Miau \n" +
+                                " Miau, Miau, Miau \n" +
+                                " Miau, Miau, Miau \n" +
+                                " Miau, Miau, Miau \n" +
+                                " Miau, Miau, Miau \n" +
+                                " Miau, Miau, Miau \n" +
+                                " Miau, Miau, Miau \n" +
+                                " Miau, Miau, Miau \n" +
+
+                                "\n Canção de Ninar para gatinhos: \n" +
+                                "\n Gatinho macio \n" +
+                                " Gatinho quentinho \n" +
                                 "Bolinha de pelo \n" +
                                 "\n" +
                                 "Gatinho feliz \n" +

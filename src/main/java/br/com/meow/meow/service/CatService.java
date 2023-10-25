@@ -1,7 +1,10 @@
 package br.com.meow.meow.service;
 
+import br.com.meow.meow.api.CatAPI;
+import br.com.meow.meow.dto.CatAPIDTO;
 import br.com.meow.meow.model.Cat;
 import br.com.meow.meow.repository.CatRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -84,11 +87,21 @@ public class CatService {
         }
     }
 
+    // Retirar ou Ajustar para devolver ou não o fato.
+    // Lembrar que o GetFact está sendo puxado no FindById (Controller)
+    @Autowired
+    private CatAPI catAPI;
     public List<Cat> findAll() {
         logger.info("Finding All cats!");
+        CatAPIDTO catFact = catAPI.findAFact();
+        System.out.println("Cat fact: " + catFact.getFact());
         return catRepository.findAll();
     }
-
+    public Cat setFactForCat(Cat cat) {
+        CatAPIDTO catFact = catAPI.findAFact();
+        cat.setFact(catFact.getFact());
+        return cat;
+    }
     public Cat update(Cat cat) {
         if (cat == null) throw new RuntimeException("Null Object");
 
@@ -102,10 +115,11 @@ public class CatService {
         newCat.setSize(cat.getSize());
         newCat.setEnabled(true);
 
-        return newCat;
+        return catRepository.save(newCat);
     }
 
-    // Falta testar...
+
+    @Transactional
     public void disableCat(Integer id) {
         logger.info("Disabling one cat by id! id: " + id);
 
@@ -116,10 +130,11 @@ public class CatService {
 
     private void verifyDuplicatedContent(Cat cat) {
         Optional<Cat> catName = catRepository.findByName(cat.getName());
-        if (catName != null && catName.get().getId() != cat.getId()) {
+        if (catName.isPresent() && catName.get().getId() != cat.getId()) {
             throw new RuntimeException("Duplicated content found");
         }
     }
+
 
     private Cat verifyIfExists(Integer id) {
         Optional<Cat> cat = findById(id);
