@@ -79,6 +79,10 @@ public class CatService {
         return catRepository.findByBreed(breed);
     }
 
+    public List<Cat> findBySize(String size) {
+        return catRepository.findBySize(size);
+    }
+
     public void deleteById(Integer id) {
         logger.info("Deleting a cat by id! id: " + id);
         catRepository.deleteById(id);
