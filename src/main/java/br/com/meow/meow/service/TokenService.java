@@ -12,7 +12,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-@Service
+//@Service
 public class TokenService {
 
     public static final String ISSUER = "auth-api-produtos";

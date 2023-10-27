@@ -17,17 +17,17 @@ import br.com.meow.meow.model.Usuario;
 import br.com.meow.meow.service.TokenService;
 import br.com.meow.meow.service.UsuarioService;
 
-@RestController
-@RequestMapping("/auth")
+//@RestController
+//@RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
+   // @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
+  //  @Autowired
     private UsuarioService userService;
 
-    @Autowired
+   // @Autowired
     private TokenService tokenService;
 
     @PostMapping("/login")

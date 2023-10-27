@@ -15,12 +15,12 @@ import br.com.meow.meow.service.TokenService;
 
 import java.io.IOException;
 
-@Component
+//@Component
 public class SecurityFilter extends OncePerRequestFilter {
 
-    @Autowired
+  //  @Autowired
     private TokenService tokenService;
-    @Autowired
+  //  @Autowired
     private UsuarioRepository userRepository;
 
     @Override

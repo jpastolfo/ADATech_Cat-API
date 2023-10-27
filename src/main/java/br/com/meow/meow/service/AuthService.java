@@ -7,10 +7,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import br.com.meow.meow.repository.UsuarioRepository;
 
-@Service
+//@Service
 public class AuthService implements UserDetailsService {
 
-    @Autowired
+  //  @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Override

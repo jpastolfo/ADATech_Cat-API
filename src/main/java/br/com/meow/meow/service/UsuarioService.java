@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import br.com.meow.meow.model.Usuario;
 import br.com.meow.meow.repository.UsuarioRepository;
 
-@Service
+//@Service
 public class UsuarioService {
 
-    @Autowired
+   // @Autowired
     private UsuarioRepository usuarioRepository;
 
     public UserDetails buscarUsuarioPorLogin(String login) {
