@@ -34,6 +34,12 @@ public class CatController {
         Cat newCat = catService.create(cat);
         return ResponseEntity.status(HttpStatus.CREATED).body(newCat);
     }
+    
+    @GetMapping("/findBySize")
+    public ResponseEntity<List<Cat>> findBySize(@RequestParam int size) {
+        List<Cat> cats = catService.findBySize(size);
+        return ResponseEntity.ok(cats);
+    }
 
     @GetMapping("/PSIPSIPSIPSI/{id}")
     @Operation(summary = "Acho que vi um gatinho...")
