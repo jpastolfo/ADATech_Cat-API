@@ -33,7 +33,7 @@ http://localhost:8080/swagger-ui/index.html
  **
 ============= TAREFAS ================
 - findBySize
-- findByBreed
+- findByBreed OK!
  ** Se for fazer os de cima, PRECISA que fazer no repository também. CatRepository. **
 
 ********
@@ -72,6 +72,11 @@ public class CatService {
     public List<Cat> findByAge(Integer age) {
         logger.info("Finding a cat by age! age: " + age);
         return catRepository.findByAge(age);
+    }
+
+    public List<Cat> findByBreed(String breed) {
+        logger.info("Finding a cat by breed! breed: " + breed);
+        return catRepository.findByBreed(breed);
     }
 
     public void deleteById(Integer id) {

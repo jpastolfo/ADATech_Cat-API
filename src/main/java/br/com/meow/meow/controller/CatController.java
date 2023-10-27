@@ -118,6 +118,31 @@ public class CatController {
         }
     }
 
+    @GetMapping("/HISSSS/{breed}")
+    @Operation(summary = "Você também viu um gatinho desse tipo?...")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "[302](https://http.cat/302)",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Cat.class)) }),
+            @ApiResponse(responseCode = "400", description = "400",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "404",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "500",
+                    content = @Content) })
+    public ResponseEntity<?> findByBreed(@PathVariable String breed) {
+        try {
+            List<Cat> catsFound = catService.findByBreed(breed);
+            if (!catsFound.isEmpty()) {
+                return ResponseEntity.ok().body(catsFound);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum gatinho encontrado com essa raça.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(INTERNAL_SERVER_ERROR_MESSAGE);
+        }
+    }
+
 
 
 

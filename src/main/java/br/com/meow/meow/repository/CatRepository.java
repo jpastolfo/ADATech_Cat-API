@@ -15,6 +15,7 @@ public interface CatRepository extends JpaRepository<Cat, Integer> {
 
     Optional<Cat> findByName(String name);
     List<Cat> findByAge(Integer age);
+    List<Cat> findByBreed(String breed);
 
     @Modifying
     @Query("UPDATE Cat c SET c.enabled = false WHERE c.id =:id")
