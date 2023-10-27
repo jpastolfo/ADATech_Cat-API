@@ -58,6 +58,10 @@ public class CatService {
         logger.info("Creating a cat! Cat Name: " + cat.getName());
         return catRepository.save(cat);
     }
+ 
+    public List<Cat> findBySize(int size) {
+        return catRepository.findBySize(size);
+    }
 
     public Optional<Cat> findById(Integer id) {
         logger.info("Finding a cat by id! id: " + id);
