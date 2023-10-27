@@ -13,6 +13,7 @@ import java.util.Optional;
 @Repository
 public interface CatRepository extends JpaRepository<Cat, Integer> {
 
+    List<Cat> findBySize(int size);
     Optional<Cat> findByName(String name);
     List<Cat> findByAge(Integer age);
     List<Cat> findByBreed(String breed);
