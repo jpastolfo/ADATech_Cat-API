@@ -66,7 +66,7 @@ public class CatService {
 
     public Optional<Cat> findByName(String name) {
         logger.info("Finding a cat by name! name: " + name);
-        return catRepository.findByName(name);
+        return catRepository.findByNameIgnoreCase(name);
     }
 
     public List<Cat> findByAge(Integer age) {
@@ -80,7 +80,7 @@ public class CatService {
     }
 
     public List<Cat> findBySize(String size) {
-        return catRepository.findBySize(size);
+        return catRepository.findBySizeIgnoreCase(size);
     }
 
     public void deleteById(Integer id) {
@@ -90,7 +90,7 @@ public class CatService {
 
     public void deleteByName(String name) {
         logger.info("Deleting a cat by name! name: " + name);
-        Cat cat = catRepository.findByName(name).get();
+        Cat cat = catRepository.findByNameIgnoreCase(name).get();
         if (cat != null) {
             catRepository.delete(cat);
         }
@@ -138,7 +138,7 @@ public class CatService {
 
 
     private void verifyDuplicatedContent(Cat cat) {
-        Optional<Cat> catName = catRepository.findByName(cat.getName());
+        Optional<Cat> catName = catRepository.findByNameIgnoreCase(cat.getName());
         if (catName.isPresent() && catName.get().getId() != cat.getId()) {
             throw new RuntimeException("Duplicated content found");
         }
